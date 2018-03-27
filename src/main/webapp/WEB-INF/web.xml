@@ -4,21 +4,21 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+	<context-param>
+        <param-name>resteasy.guice.modules</param-name>
+        <param-value>com.github.zesetup.mab.SimpleModule</param-value>
+	</context-param>
+	<listener>
+        <listener-class>
+            org.jboss.resteasy.plugins.guice.GuiceResteasyBootstrapServletContextListener
+        </listener-class>
+    </listener>
+	<servlet>
+		<servlet-name>Resteasy</servlet-name>
+		<servlet-class>
+			org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher
+		</servlet-class>
+	</servlet>
 
-
-  <servlet>
-    <servlet-name>jersey-serlvet</servlet-name>
-    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-    <init-param>
-        <param-name>jersey.config.server.provider.packages</param-name>
-        <param-value>com.github.zesetup.mab.service</param-value>
-    </init-param>
-    <load-on-startup>1</load-on-startup>
-
-  </servlet>
-    <servlet-mapping>
-		<servlet-name>jersey-serlvet</servlet-name>
-		<url-pattern>/rest/*</url-pattern>
-	</servlet-mapping>
  </web-app>
 
