@@ -7,7 +7,6 @@ import com.github.zesetup.mab.MongoProviderImpl;
 import com.github.zesetup.mab.service.EmployeeService;
 
 public class SimpleModule implements Module {
-
     @Override
     public void configure(final Binder binder) {
       binder.bind(EmployeeService.class);

@@ -8,7 +8,7 @@ import com.mongodb.MongoClient;
 @Singleton
 public class MongoProviderImpl implements MongoProvider {
   public DB getDatabase() {
-    MongoClient mongoClient = new MongoClient("test-server", 27017);
+    MongoClient mongoClient = new MongoClient("localhost", 27017);
     return mongoClient.getDB("myMongoDb");
   }
 }

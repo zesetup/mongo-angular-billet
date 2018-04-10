@@ -2,9 +2,11 @@ package com.github.zesetup.mab.domain;
 
 import java.util.UUID;
 import javax.xml.bind.annotation.XmlRootElement;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 
 @XmlRootElement
-public class Employee {		
+public class Employee {
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
@@ -18,12 +20,6 @@ public class Employee {
 
 	private String position; 
 
-	
-	private Boolean isActive = true;
-
-	private String notes;
-	
-
 	public Employee(){
 		this.employeeId = UUID.randomUUID().toString();
 	}
@@ -36,13 +32,21 @@ public class Employee {
 		this.employeeId = UUID.randomUUID().toString();
 	}
 	
+	public Employee(String login, String name, String surname, String position, String eid){
+      this.login = login;
+      this.name = name;
+      this.surname = surname;
+      this.position = position;
+      this.employeeId = eid;
+  }
+	
 	
 	public String getId() {
 		return employeeId;
 	}
 
 	public String getLogin() {
-		return login+"";
+		return login;
 	}
 
 	public String getName() {
@@ -69,23 +73,28 @@ public class Employee {
 		this.position = position;
 	}
 
-	public Boolean getIsActive() {
-		return isActive;
-	}
-
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
-
-	public String getNotes() {
-		return notes;
-	}
-
-	public void setNotes(String notes) {
-		this.notes = notes;
-	}
 	@Override
 	public String  toString() {
-		return "login: "+login+"; name: " +name+"; surname: "+surname+"; notes: "+notes;
+      return "login: " + login + "; name: " + name + "; surname: " + surname; 
 	}
+
+  public static Employee fromDbObject(DBObject dbObject) {
+    return new Employee(
+        (String) dbObject.get("eid"),
+        (String) dbObject.get("login"),
+        (String) dbObject.get("name"),
+        (String) dbObject.get("surname"),
+        (String) dbObject.get("position")
+        );
+  }
+
+  public  DBObject toDbObject() {
+    DBObject  dbObject =  new BasicDBObject();
+    dbObject.put("eid", this.employeeId);
+    dbObject.put("login", this.login);
+    dbObject.put("name", this.name);
+    dbObject.put("surname", this.surname);
+    dbObject.put("position", this.position);
+    return dbObject;
+  }
 }
